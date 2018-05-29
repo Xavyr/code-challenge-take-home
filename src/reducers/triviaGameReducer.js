@@ -1,7 +1,6 @@
 const initialState = {
   asyncData: false,
   gameBegun: false,
-  chosenAnswer: null,
   loadedQuestions: null,
   answeredQuestions: [],
   correctCount: 0

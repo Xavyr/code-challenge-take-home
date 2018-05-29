@@ -9,11 +9,10 @@ import * as actions from '../action/actions'
 
 const mapStateToProps = (store) => {
   return {
-    correctCount: store.firstReducer.correctCount,
-    gameBegun: store.firstReducer.gameBegun,
-    loadedQuestions: store.firstReducer.loadedQuestions,
-    chosenAnswer: store.firstReducer.chosenAnswer,
-    answeredQuestions: store.firstReducer.answeredQuestions
+    correctCount: store.triviaGameReducer.correctCount,
+    gameBegun: store.triviaGameReducer.gameBegun,
+    loadedQuestions: store.triviaGameReducer.loadedQuestions,
+    answeredQuestions: store.triviaGameReducer.answeredQuestions
   }
 }
 

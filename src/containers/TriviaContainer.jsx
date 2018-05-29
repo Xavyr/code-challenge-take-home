@@ -22,9 +22,11 @@ const generateQuestionComponents = (props) => {
 
 const TriviaContainer = props => {
   const queue = generateQuestionComponents(props);
+  const currentNumber = ((10 - queue.length) + '/10');
   return (
     <div>
       {queue[0]}
+      {currentNumber}
     </div>
   )
 }
