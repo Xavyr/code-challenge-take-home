@@ -2,7 +2,6 @@ import React from 'react';
 import Answers from '../components/Answers.jsx';
 
 const generateAnswerComponents = (props) => {
-  console.log('HERE!!!', props);
   const answerComponents = [];
   for(let i = 0; i < props.answeredQuestions.length; i++) {
     answerComponents.push(
@@ -21,10 +20,14 @@ const generateAnswerComponents = (props) => {
 
 
 const AnswerContainer = props => {
+  const tally = props.correctCount + "/10";
   const allAnswers = generateAnswerComponents(props);
   return (
     <div>
+      <h3>You Scored:</h3>
+      { tally }
       { allAnswers }
+      <button onClick={props.beginGame}>Play Again</button>
     </div>
   )
 }

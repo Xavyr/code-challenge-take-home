@@ -9,6 +9,7 @@ import * as actions from '../action/actions'
 
 const mapStateToProps = (store) => {
   return {
+    correctCount: store.firstReducer.correctCount,
     gameBegun: store.firstReducer.gameBegun,
     loadedQuestions: store.firstReducer.loadedQuestions,
     chosenAnswer: store.firstReducer.chosenAnswer,
@@ -33,9 +34,10 @@ class App extends Component {
   render() {
     const renderSwitch = () => {
       if(this.props.answeredQuestions.length === 10) {
-        console.log('answerQuestions?', this.props.answeredQuestions);
         return <AnswersContainer
+          correctCount={this.props.correctCount}
           answeredQuestions={this.props.answeredQuestions}
+          beginGame={this.props.beginGame}
         />
       }
       if(!this.props.gameBegun) {
