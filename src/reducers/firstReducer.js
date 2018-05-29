@@ -27,11 +27,6 @@ const firstReducer = (state = initialState, action) => {
         chosenAnswer: action.payload,
         answeredQuestions: copiedAnsweredQuestions
       }
-    case 'ASYNC_ACTION':
-      return {
-        ...state,
-        asyncData: action.payload
-      }
     default:
       return state;
   }

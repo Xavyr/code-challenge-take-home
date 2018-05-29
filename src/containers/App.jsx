@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import HomePage from '../components/HomePage.jsx';
 import TriviaContainer from './TriviaContainer.jsx';
+import AnswersContainer from './AnswersContainer.jsx';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../action/actions'
@@ -8,7 +9,6 @@ import * as actions from '../action/actions'
 
 const mapStateToProps = (store) => {
   return {
-    asyncData: store.firstReducer.asyncData,
     gameBegun: store.firstReducer.gameBegun,
     loadedQuestions: store.firstReducer.loadedQuestions,
     chosenAnswer: store.firstReducer.chosenAnswer,
@@ -18,7 +18,6 @@ const mapStateToProps = (store) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    asyncAction: actions.asyncAction,
     beginGame: actions.beginGame,
     chosen: actions.chosen
   }, dispatch)
@@ -33,6 +32,12 @@ class App extends Component {
 
   render() {
     const renderSwitch = () => {
+      if(this.props.answeredQuestions.length === 10) {
+        console.log('answerQuestions?', this.props.answeredQuestions);
+        return <AnswersContainer
+          answeredQuestions={this.props.answeredQuestions}
+        />
+      }
       if(!this.props.gameBegun) {
         return <HomePage
           beginGame={this.props.beginGame}
