@@ -1,6 +1,7 @@
 import React from 'react';
 import Question from '../components/Question.jsx';
 
+//creates an array of question components that acts as a queue, showing the next in line at a time
 const generateQuestionComponents = (props) => {
   const questionComponents = [];
   for(let i = 0; i < props.loadedQuestions.results.length; i++) {

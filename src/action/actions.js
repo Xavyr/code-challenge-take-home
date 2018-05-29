@@ -21,7 +21,7 @@ export const beginGame = () => {
 };
 
 export const chosen = (chosenAnswer) => {
-  return {type: types.CHOSEN, payload: chosenAnswer.target.value}
+  return {type: types.CHOSEN, payload: chosenAnswer.currentTarget.value}
 }
 
 

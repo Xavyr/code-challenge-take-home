@@ -3,6 +3,7 @@ const initialState = {
   gameBegun: false,
   loadedQuestions: null,
   answeredQuestions: [],
+  chosenAnswer: null,
   correctCount: 0
 }
 
@@ -21,6 +22,7 @@ const firstReducer = (state = initialState, action) => {
       let copiedAnsweredQuestions = Object.assign([], state.answeredQuestions);
       let recentAnswer = state.loadedQuestions.results[0];
       recentAnswer.userCorrect = (String(recentAnswer.correct_answer) === action.payload) ? 'yes' : 'no';
+      console.log('userPicked', recentAnswer);
       copiedAnsweredQuestions.push(recentAnswer);
       let decrementedQuestions = state.loadedQuestions.results.slice(1);
       let userCorrectCount = state.correctCount;

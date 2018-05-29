@@ -1,18 +1,18 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 
 const HomePage = props =>
   <div>
-    <h1>Welcome to the Trivia Challenge</h1>
-    <h3>You will be presented with 10 True or False questions.</h3>
-    <h3>Can you score 100%?</h3>
-    <button onClick={props.beginGame}>BEGIN</button>
-    {/*<button*/}
-      {/*style={{display: 'inline', float: 'right'}}*/}
-      {/*onClick={props.asyncAction}>AsyncAction*/}
-    {/*</button>*/}
-    {/*<br/>*/}
-    {/*<h1 style={{display: 'inline', float: 'left'}}>{JSON.stringify(props.gameBegun)}</h1>*/}
-    {/*<h1 style={{display: 'inline', float: 'right'}}>{JSON.stringify(props.asyncData)}</h1>*/}
+    <Card>
+      <CardContent>
+        <h1>Welcome to the Trivia Challenge</h1>
+        <h3>You will be presented with 10 True or False questions.</h3>
+        <h3>Can you score 100%?</h3>
+        <Button variant="raised" color="primary" onClick={props.beginGame}>BEGIN</Button>
+      </CardContent>
+    </Card>
   </div>
 
 

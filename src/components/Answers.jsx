@@ -1,18 +1,19 @@
 import React from 'react';
+import Icon from '@material-ui/core/Icon';
+
+//determining whether a positive or negative icon is applied to the result component
+const determinePlusMinusIcons = (userCorrect) => {
+  if(userCorrect === "yes") {
+    return  <Icon color="primary">add_circle</Icon>;
+  } else {
+    return <Icon color="secondary">not_interested</Icon>;
+  }
+}
 
 const Answers = props =>
   <div>
-    <h1>{props.title}</h1>
-    <div>
-      {"correct Answer: " + props.correctAnswer}
-      <br/>
-      {"Were You Correct? " + props.userCorrect}
-      <br/>
-      {"category: " + props.category}
-      <br/>
-      {"difficulty: " + props.difficulty}
-      <br/>
-    </div>
+    <h2>{determinePlusMinusIcons(props.userCorrect)}{" " + props.title}</h2>
+    <br/>
   </div>
 
 
