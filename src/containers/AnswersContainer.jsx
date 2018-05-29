@@ -10,7 +10,7 @@ const generateAnswerComponents = (props) => {
   for(let i = 0; i < props.answeredQuestions.length; i++) {
     answerComponents.push(
       <Answers
-        i={i}
+        key={i}
         title={props.answeredQuestions[i].question}
         category={props.answeredQuestions[i].category}
         difficulty={props.answeredQuestions[i].difficulty}
