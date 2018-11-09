@@ -2,27 +2,26 @@ import React from 'react';
 import Question from '../components/Question.jsx';
 
 //creates an array of question components that acts as a queue, showing the next in line at a time
-const generateQuestionComponents = (props) => {
-  const questionComponents = [];
-  for(let i = 0; i < props.loadedQuestions.results.length; i++) {
-    questionComponents.push(
+const generateQuestionComponents = (loadedQuestions, chosen) => {
+  const { results } = loadedQuestions || {}
+  return results.map((r, i) => {
+    const { question, category, difficulty, correct_answer } = r || {}
+    return (
       <Question
-        i={i}
-        title={props.loadedQuestions.results[i].question}
-        category={props.loadedQuestions.results[i].category}
-        difficulty={props.loadedQuestions.results[i].difficulty}
-        correctAnswer={props.loadedQuestions.results[i].correct_answer}
+        i={`${question} ${i}`}
+        title={question}
+        category={category}
+        difficulty={difficulty}
+        correctAnswer={correct_answer}
         answeredByUser={false}
-        chosen={props.chosen}
+        chosen={chosen}
       />
     )
-  }
-  return questionComponents;
+  })
 }
 
-
-const TriviaContainer = props => {
-  const queue = generateQuestionComponents(props);
+const TriviaContainer = ({ loadedQuestions, chosen }) => {
+  const queue = generateQuestionComponents(loadedQuestions, chosen);
   const currentNumber = ((10 - queue.length) + '/10');
   return (
     <div>

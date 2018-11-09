@@ -15,55 +15,58 @@ const board = {
 
 //potentially we could have an app with multiple games in which case we probably want different reducers
 const mapStateToProps = (store) => {
+  const { triviaGameReducer } = store || {}
+  const { correctCount, gameBegun, loadedQuestions, chosenAnswer, answeredQuestions } = triviaGameReducer || {}
   return {
-    correctCount: store.triviaGameReducer.correctCount,
-    gameBegun: store.triviaGameReducer.gameBegun,
-    loadedQuestions: store.triviaGameReducer.loadedQuestions,
-    chosenAnswer: store.triviaGameReducer.chosenAnswer,
-    answeredQuestions: store.triviaGameReducer.answeredQuestions
+    correctCount: correctCount,
+    gameBegun: gameBegun,
+    loadedQuestions: loadedQuestions,
+    chosenAnswer: chosenAnswer,
+    answeredQuestions: answeredQuestions
   }
 }
 
 //the beginGame action makes the ajax call
 const mapDispatchToProps = (dispatch) => {
+  const { beginGame, chosen } = actions || {}
   return bindActionCreators({
-    beginGame: actions.beginGame,
-    chosen: actions.chosen
+    beginGame: beginGame,
+    chosen: chosen
   }, dispatch)
 };
 
 
 class App extends Component {
-  render() {
-    //this renderSwitch function is playing the part of React Router
-    const renderSwitch = () => {
-      //this final 'view' is the game results and scores
-      if(this.props.answeredQuestions.length === 10) {
-        return <AnswersContainer
-          correctCount={this.props.correctCount}
-          answeredQuestions={this.props.answeredQuestions}
-          beginGame={this.props.beginGame}
-        />
-      }
-      //if the game has not begun we render the 'Home' presentational component, passing the redux actions to kick off the game
-      if(!this.props.gameBegun) {
-        return <HomePage
-          beginGame={this.props.beginGame}
-          gameBegun={this.props.gameBegun}
-        />
-      }
-      //if the game has begun we render the trivia container that renders child question components
-      if(this.props.gameBegun) {
-        return <TriviaContainer
-          loadedQuestions={this.props.loadedQuestions}
-          chosen={this.props.chosen}
-        />
-      }
+  constructor(props) {
+    super(props);
+  }
+  //this renderSwitch function is playing the part of React Router
+  renderSwitch = ({ answeredQuestions, correctCount, beginGame, gameBegun, loadedQuestions, chosen }) => {
+    //this final 'view' is the game results and scores
+    if (answeredQuestions.length === 10) {
+      return <AnswersContainer
+        correctCount={correctCount}
+        answeredQuestions={answeredQuestions}
+        beginGame={beginGame}
+      />
     }
+    //if the game has not begun we render the 'Home' presentational component, passing the redux actions to kick off the game
+    if (!gameBegun) {
+      return <HomePage beginGame={beginGame} />
+    }
+    //if the game has begun we render the trivia container that renders child question components
+    if (gameBegun) {
+      return <TriviaContainer
+        loadedQuestions={loadedQuestions}
+        chosen={chosen}
+      />
+    }
+  }
 
+  render() {
     return (
       <div style={board}>
-        {renderSwitch()}
+        {this.renderSwitch({ ...this.props })}
       </div>
     );
   }

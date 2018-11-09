@@ -8,7 +8,7 @@ const initialState = {
 }
 
 //The action passed into our reducer comes from the dispatch.
-const firstReducer = (state = initialState, action) => {
+const triviaGameReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'BEGIN_GAME':
       return {
@@ -19,20 +19,28 @@ const firstReducer = (state = initialState, action) => {
         loadedQuestions: action.payload
       }
     case 'CHOSEN':
-      let copiedAnsweredQuestions = Object.assign([], state.answeredQuestions);
-      let recentAnswer = state.loadedQuestions.results[0];
-      recentAnswer.userCorrect = (String(recentAnswer.correct_answer) === action.payload) ? 'yes' : 'no';
+      const { answeredQuestions, loadedQuestions, correctCount } = state || {}
+      const { results } = loadedQuestions || {}
+
+      let copiedAnsweredQuestions = Object.assign([], answeredQuestions);
+      let recentAnswer = results[0];
+
+      const { userCorrect, correct_answer } = recentAnswer || {}
+
+      recentAnswer.userCorrect = (String(correct_answer) === action.payload) ? 'yes' : 'no';
       copiedAnsweredQuestions.push(recentAnswer);
-      let decrementedQuestions = state.loadedQuestions.results.slice(1);
-      let userCorrectCount = state.correctCount;
-      if(recentAnswer.userCorrect === 'yes') {
+
+      let decrementedQuestions = results.slice(1);
+      let userCorrectCount = correctCount;
+
+      if (recentAnswer.userCorrect === 'yes') {
         userCorrectCount += 1;
       }
 
       return {
         ...state,
         correctCount: userCorrectCount,
-        loadedQuestions: {results: decrementedQuestions},
+        loadedQuestions: { results: decrementedQuestions },
         chosenAnswer: action.payload,
         answeredQuestions: copiedAnsweredQuestions
       }
@@ -42,9 +50,7 @@ const firstReducer = (state = initialState, action) => {
 };
 
 
-
-
-export default firstReducer;
+export default triviaGameReducer;
 
 
 
